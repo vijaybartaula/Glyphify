@@ -1,0 +1,71 @@
+graph TD
+    A[vijaybartaula-glyphify] --> B[📁 Configuration Files]
+    A --> C[📁 app/]
+    A --> D[📁 components/]
+    A --> E[📁 docs/]
+    A --> F[📁 hooks/]
+    A --> G[📁 lib/]
+    A --> H[📁 styles/]
+
+    B --> B1[components.json]
+    B --> B2[next.config.mjs]
+    B --> B3[package.json]
+    B --> B4[pnpm-lock.yaml]
+    B --> B5[postcss.config.mjs]
+    B --> B6[tailwind.config.ts]
+    B --> B7[tsconfig.json]
+
+    C --> C1[globals.css]
+    C --> C2[layout.tsx]
+    C --> C3[page.tsx - Landing page]
+    C --> C4[smooth-scroll.tsx]
+    C --> C5[📁 about/]
+    C --> C6[📁 convert/]
+    C --> C7[📁 gallery/]
+
+    C5 --> C5A[page.tsx - About & ASCII history]
+    C6 --> C6A[page.tsx - Main conversion interface]
+    C7 --> C7A[page.tsx - Inspiration gallery]
+
+    D --> D1[ascii-converter.tsx - Core conversion interface]
+    D --> D2[ascii-output.tsx - Result display]
+    D --> D3[footer.tsx]
+    D --> D4[image-dropzone.tsx - Upload component]
+    D --> D5[interactive-ascii-preview.tsx]
+    D --> D6[mode-toggle.tsx - Theme switcher]
+    D --> D7[navbar.tsx]
+    D --> D8[theme-provider.tsx]
+    D --> D9[📁 ui/ - shadcn/ui components]
+
+    D9 --> D9A[accordion.tsx]
+    D9 --> D9B[alert-dialog.tsx]
+    D9 --> D9C[alert.tsx]
+    D9 --> D9D[button.tsx]
+    D9 --> D9E[card.tsx]
+    D9 --> D9F[dialog.tsx]
+    D9 --> D9G[input.tsx]
+    D9 --> D9H[select.tsx]
+    D9 --> D9I[slider.tsx]
+    D9 --> D9J[switch.tsx]
+    D9 --> D9K[... 30+ more UI components]
+
+    E --> E1[issues.md]
+    E --> E2[whitepaper.md]
+
+    F --> F1[use-mobile.tsx]
+    F --> F2[use-toast.ts]
+
+    G --> G1[ascii-converter.ts - Conversion algorithms]
+    G --> G2[utils.ts - Helper functions]
+
+    H --> H1[globals.css]
+
+    classDef configFiles fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef appFiles fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef componentFiles fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef utilFiles fill:#fff3e0,stroke:#e65100,stroke-width:2px
+
+    class B,B1,B2,B3,B4,B5,B6,B7 configFiles
+    class C,C1,C2,C3,C4,C5,C6,C7,C5A,C6A,C7A appFiles
+    class D,D1,D2,D3,D4,D5,D6,D7,D8,D9,D9A,D9B,D9C,D9D,D9E,D9F,D9G,D9H,D9I,D9J,D9K componentFiles
+    class E,E1,E2,F,F1,F2,G,G1,G2,H,H1 utilFiles
