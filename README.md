@@ -2,7 +2,7 @@
 
 <div align="center">
   
-![Glyphify Logo: Whimsical Digital Artistry](https://github.com/user-attachments/assets/69bbd3de-9d6c-4816-8628-d84a5576cbaa)
+![Glyphify Logo: Whimsical Digital Artistry](https://i.ibb.co/jk9bScBW/Whimsical-Digital-Artistry.png)
 
 **Transform your images into stunning ASCII art with just a few clicks.**
 
