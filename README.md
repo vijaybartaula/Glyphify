@@ -6,12 +6,12 @@
 
 **Transform your images into stunning ASCII art with just a few clicks.**
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Explore_Now-brightgreen?style=for-the-badge)](https://glyphify.vercel.app)
+[![Explore_Now](https://img.shields.io/badge/Explore_Now-brightgreen?style=for-the-badge)](https://glyphify.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/vijaybartaula/Glyphify?style=for-the-badge&logo=github)](https://github.com/vijaybartaula/Glyphify/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 
-[**Explore Live**](https://glyphify.vercel.app) • [**Documentation**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/whitepaper.md) • [**Report Bug**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/issues.md) • [**Request Feature**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/issues.md) • [**Demo Video**](https://www.youtube.com/watch?v=H9dAUs1-Kyo)
+[**Documentation**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/whitepaper.md) • [**Report Bug**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/issues.md) • [**Request Feature**](https://github.com/vijaybartaula/Glyphify/blob/main/docs/issues.md) • [**Demo Video**](https://www.youtube.com/watch?v=H9dAUs1-Kyo)
 
 </div>
 
@@ -271,9 +271,9 @@ All image processing happens in your browser, ensuring:
    - Avoid overly busy or cluttered photos
 
 2. **Width Optimization**
-   - Start with 80-100 characters for balance
-   - Increase to 150+ for detailed images
-   - Reduce to 50-70 for social media posts
+   - Start with 100 characters for balance
+   - Increase to 200 for detailed images
+   - Reduce to 75-95 for social media posts
 
 3. **Character Set Strategy**
    - Dense sets for complex, detailed images
