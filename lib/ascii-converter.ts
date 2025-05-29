@@ -64,7 +64,7 @@ const initWorker = () => {
               const char = charset[charIndex];
               
               // Add colored character with span
-              result += \`<span style="color: rgb(\${r}, \${g}, \${b})">\${char}</span>\`;
+              result += \<span style="color: rgb(\${r}, \${g}, \${b})">\${char}</span>\;
             }
             result += '<br/>';
           }
@@ -247,7 +247,7 @@ function processColoredAscii(
       const char = charsetArray[charIndex]
 
       // Add colored character with span
-      result += `<span style="color: rgb(${r}, ${g}, ${b})">${char}</span>`
+      result += <span style="color: rgb(${r}, ${g}, ${b})">${char}</span>
     }
     result += "<br/>"
 
@@ -260,7 +260,7 @@ function processColoredAscii(
   return result
 }
 
-// Improve the captureAsciiArtAsImage function to eliminate unnecessary whitespace
+// Improve the captureAsciiArtAsImage function with solid black background
 export async function captureAsciiArtAsImage(container: HTMLDivElement): Promise<string> {
   // Create a clone of the container to manipulate without affecting the original
   const clone = container.cloneNode(true) as HTMLDivElement
@@ -273,11 +273,11 @@ export async function captureAsciiArtAsImage(container: HTMLDivElement): Promise
   clone.style.position = "absolute"
   clone.style.left = "-9999px"
   clone.style.top = "-9999px"
-  clone.style.width = `${fullWidth}px`
-  clone.style.height = `${fullHeight}px`
+  clone.style.width = ${fullWidth}px
+  clone.style.height = ${fullHeight}px
   clone.style.maxHeight = "none" // Remove max-height constraint
   clone.style.overflow = "visible" // Make sure nothing is hidden
-  clone.style.backgroundColor = "transparent" // Use transparent background to avoid extra space
+  clone.style.backgroundColor = "#000000" // Use solid black background instead of transparent
 
   // Remove all padding and margins to eliminate extra space
   clone.style.padding = "0"
@@ -289,13 +289,16 @@ export async function captureAsciiArtAsImage(container: HTMLDivElement): Promise
   clone.style.fontSize = getComputedStyle(container).fontSize
   clone.style.lineHeight = "1.2" // Consistent line height
 
+  // For better contrast on black background, ensure text is visible
+  clone.style.color = "#ffffff" // Default white text for better contrast
+
   // Add to document to compute styles
   document.body.appendChild(clone)
 
   try {
     // Use html2canvas to capture the exact rendering
     const canvas = await html2canvas(clone, {
-      backgroundColor: "transparent", // Use transparent background
+      backgroundColor: "#000000", // Use solid black background
       scale: 2, // Higher resolution
       logging: false,
       useCORS: true,
@@ -351,11 +354,17 @@ function trimCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement {
   let bottom = 0
   let foundContent = false
 
-  // Find the boundaries of non-transparent pixels
+  // Find the boundaries of non-black pixels (since we're using black background now)
   for (let y = 0; y < canvas.height; y++) {
     for (let x = 0; x < canvas.width; x++) {
-      const alpha = data[(y * canvas.width + x) * 4 + 3]
-      if (alpha > 0) {
+      const pixelIndex = (y * canvas.width + x) * 4
+      const r = data[pixelIndex]
+      const g = data[pixelIndex + 1]
+      const b = data[pixelIndex + 2]
+      const alpha = data[pixelIndex + 3]
+
+      // Check if pixel is not black (has content)
+      if (alpha > 0 && (r > 10 || g > 10 || b > 10)) {
         foundContent = true
         if (x < left) left = x
         if (x > right) right = x
@@ -368,11 +377,11 @@ function trimCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement {
   // If no content was found, return the original canvas
   if (!foundContent) return canvas
 
-  // Add a minimal margin (1px) to avoid cutting off characters
-  left = Math.max(0, left - 1)
-  top = Math.max(0, top - 1)
-  right = Math.min(canvas.width - 1, right + 1)
-  bottom = Math.min(canvas.height - 1, bottom + 1)
+  // Add a minimal margin (2px) to avoid cutting off characters
+  left = Math.max(0, left - 2)
+  top = Math.max(0, top - 2)
+  right = Math.min(canvas.width - 1, right + 2)
+  bottom = Math.min(canvas.height - 1, bottom + 2)
 
   // Calculate dimensions
   const trimmedWidth = right - left + 1
@@ -385,6 +394,10 @@ function trimCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement {
 
   const trimmedContext = trimmedCanvas.getContext("2d")
   if (trimmedContext) {
+    // Fill with black background first
+    trimmedContext.fillStyle = "#000000"
+    trimmedContext.fillRect(0, 0, trimmedWidth, trimmedHeight)
+
     // Draw only the content area to the new canvas
     trimmedContext.drawImage(canvas, left, top, trimmedWidth, trimmedHeight, 0, 0, trimmedWidth, trimmedHeight)
   }
@@ -392,7 +405,7 @@ function trimCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement {
   return trimmedCanvas
 }
 
-// Improved fallback method for better content capture
+// Improved fallback method with black background
 function fallbackCaptureMethod(container: HTMLDivElement): string {
   const fullHeight = container.scrollHeight
   const fullWidth = container.scrollWidth
@@ -407,17 +420,19 @@ function fallbackCaptureMethod(container: HTMLDivElement): string {
   canvas.width = fullWidth
   canvas.height = fullHeight
 
-  // Use transparent background
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  // Fill with black background
+  ctx.fillStyle = "#000000"
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   // Get the HTML content
   const html = container.innerHTML
 
-  // Create a data URL from the HTML content with minimal styling
+  // Create a data URL from the HTML content with black background styling
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${fullWidth}" height="${fullHeight}">
+      <rect width="100%" height="100%" fill="#000000"/>
       <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: monospace; white-space: pre; padding: 0; margin: 0; border: none; width: ${fullWidth}px; height: ${fullHeight}px;">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: monospace; white-space: pre; padding: 0; margin: 0; border: none; width: ${fullWidth}px; height: ${fullHeight}px; background-color: #000000; color: #ffffff;">
           ${html}
         </div>
       </foreignObject>
